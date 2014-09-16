@@ -23,7 +23,7 @@ class AccountNumberTest : public Test
                                     "\n");
     const string DIGIT_NINE_LINES = (" _ \n"
                                      "|_|\n"
-                                     "  | \n"
+                                     " _| \n"
                                      "\n");
 public:
     AccountNumberTest()

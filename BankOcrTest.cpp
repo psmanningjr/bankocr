@@ -33,11 +33,19 @@ TEST(BankOcrTest, GivenAFileWithOneAccountNumberThenItReturnsAccountNumber)
 
     istringstream fileWithAccountNineOnly(" _ \n"
                                           "|_|\n"
-                                          "  |\n"
+                                          " _|\n"
                                           "\n");
 
 
     EXPECT_THAT(TheBankOcr.read(fileWithAccountNineOnly), Eq("9"));
+
+    istringstream fileWithAccountEightOnly(" _ \n"
+                                           "|_|\n"
+                                           "|_|\n"
+                                           "\n");
+
+
+    EXPECT_THAT(TheBankOcr.read(fileWithAccountEightOnly), Eq("8"));
 }
 
 TEST(BankOcrTest, GivenAFileWithTwoDigitAccountNumberThenItReturnsAccountNumber)
@@ -55,9 +63,17 @@ TEST(BankOcrTest, GivenAFileWithTwoDigitAccountNumberThenItReturnsAccountNumber)
 TEST(BankOcrTest, GivenAFileWithNineDigitAccountNumberThenItReturnsAccountNumber)
 {
     BankOcr TheBankOcr;
-    istringstream fileWithOneAccount("                           \n"
-                                     "  |  |  |  |  |  |  |  |  |\n"
-                                     "  |  |  |  |  |  |  |  |  |\n"
+    istringstream fileWithAllOnes("                           \n"
+                                  "  |  |  |  |  |  |  |  |  |\n"
+                                  "  |  |  |  |  |  |  |  |  |\n"
+                                  "\n");
+    EXPECT_THAT(TheBankOcr.read(fileWithAllOnes), Eq("111111111"));
+
+    istringstream fileWithOneAccount("    _  _     _  _  _  _  _ \n"
+                                     "  | _| _||_||_ |_   ||_||_|\n"
+                                     "  ||_  _|  | _||_|  ||_| _|\n"
                                      "\n");
-    EXPECT_THAT(TheBankOcr.read(fileWithOneAccount), Eq("111111111"));
+    EXPECT_THAT(TheBankOcr.read(fileWithOneAccount), Eq("123456789"));
 }
+
+
