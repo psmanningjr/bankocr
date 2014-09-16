@@ -9,6 +9,12 @@ using namespace std;
 
 class AccountNumber
 {
+    const string DIGIT_ONE_CODE = ("   "
+                                   "  |"
+                                   "  |");
+    const string DIGIT_TWO_CODE = (" _ "
+                                   " _|"
+                                   "|_ ");
 public:
     AccountNumber(istream& inputStream)
     {
@@ -20,13 +26,19 @@ public:
 
     string value() const
     {
-        if (SecondLine == "                          |")
+        string scannedChar = FirstLine.substr(24,3).
+                append(SecondLine.substr(24,3).
+                append(ThirdLine.substr(24,3)));
+        if (scannedChar == DIGIT_ONE_CODE)
         {
             return "1";
         }
         else
         {
-            return "2";
+            if (scannedChar == DIGIT_TWO_CODE)
+                return "2";
+            else
+                return "9";
         }
     }
 
@@ -34,6 +46,7 @@ public:
     string SecondLine;
     string ThirdLine;
     string FourthLine;
+    string ScannedChar;
 };
 
 #endif // ACCOUNTNUMBER_H

@@ -9,6 +9,7 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
 set(SRC_LIST
     AccountNumber.h
+    AccountNumberTest.cpp
     BankOcrTest.cpp
     BankOcr.h
     main.cpp)
