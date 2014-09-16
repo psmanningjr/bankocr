@@ -43,6 +43,7 @@ class AccountNumber
 public:
     AccountNumber(istream& inputStream)
     {
+        DigitMap[DIGIT_ZERO_CODE] = "0";
         DigitMap[DIGIT_ONE_CODE] = "1";
         DigitMap[DIGIT_TWO_CODE] = "2";
         DigitMap[DIGIT_THREE_CODE] = "3";

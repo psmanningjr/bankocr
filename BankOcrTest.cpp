@@ -63,11 +63,11 @@ TEST(BankOcrTest, GivenAFileWithTwoDigitAccountNumberThenItReturnsAccountNumber)
 TEST(BankOcrTest, GivenAFileWithNineDigitAccountNumberThenItReturnsAccountNumber)
 {
     BankOcr TheBankOcr;
-    istringstream fileWithAllOnes("                           \n"
-                                  "  |  |  |  |  |  |  |  |  |\n"
-                                  "  |  |  |  |  |  |  |  |  |\n"
+    istringstream fileWithAllOnes("                         _ \n"
+                                  "  |  |  |  |  |  |  |  || |\n"
+                                  "  |  |  |  |  |  |  |  ||_|\n"
                                   "\n");
-    EXPECT_THAT(TheBankOcr.read(fileWithAllOnes), Eq("111111111"));
+    EXPECT_THAT(TheBankOcr.read(fileWithAllOnes), Eq("111111110"));
 
     istringstream fileWithOneAccount("    _  _     _  _  _  _  _ \n"
                                      "  | _| _||_||_ |_   ||_||_|\n"
