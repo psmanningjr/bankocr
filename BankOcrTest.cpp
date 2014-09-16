@@ -51,3 +51,13 @@ TEST(BankOcrTest, GivenAFileWithTwoDigitAccountNumberThenItReturnsAccountNumber)
 
     EXPECT_THAT(TheBankOcr.read(fileWithAccountOneOnly), Eq("11"));
 }
+
+TEST(BankOcrTest, GivenAFileWithNineDigitAccountNumberThenItReturnsAccountNumber)
+{
+    BankOcr TheBankOcr;
+    istringstream fileWithOneAccount("                           \n"
+                                     "  |  |  |  |  |  |  |  |  |\n"
+                                     "  |  |  |  |  |  |  |  |  |\n"
+                                     "\n");
+    EXPECT_THAT(TheBankOcr.read(fileWithOneAccount), Eq("111111111"));
+}
