@@ -55,17 +55,30 @@ public:
         DigitMap[DIGIT_SEVEN_CODE] = "7";
         DigitMap[DIGIT_EIGHT_CODE] = "8";
         DigitMap[DIGIT_NINE_CODE]  = "9";
-        std::getline(*inpStream,FirstLine);
-        std::getline(*inpStream,SecondLine);
-        std::getline(*inpStream,ThirdLine);
-        std::getline(*inpStream,FourthLine);
     }
 
     string value()
     {
-        string scannedDigits;
-        decodeDigit(FirstLine, SecondLine, ThirdLine, scannedDigits);
-        return scannedDigits;
+        string line1ScannedDigits;
+        std::getline(*inpStream,FirstLine);
+        std::getline(*inpStream,SecondLine);
+        std::getline(*inpStream,ThirdLine);
+        std::getline(*inpStream,FourthLine);
+        decodeDigit(FirstLine, SecondLine, ThirdLine, line1ScannedDigits);
+        string line2ScannedDigits;
+        std::getline(*inpStream,FirstLine);
+        std::getline(*inpStream,SecondLine);
+        std::getline(*inpStream,ThirdLine);
+        std::getline(*inpStream,FourthLine);
+        if (FirstLine.length() == 0)
+        {
+            return line1ScannedDigits;
+        }
+        else
+        {
+            decodeDigit(FirstLine, SecondLine, ThirdLine, line2ScannedDigits);
+            return line1ScannedDigits.append('\n'+line2ScannedDigits);
+        }
     }
 
 private:

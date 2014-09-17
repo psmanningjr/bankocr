@@ -9,10 +9,6 @@ using namespace testing;
 
 class AccountNumberTest : public Test
 {
-//    _  _     _  _  _  _  _
-//  | _| _||_||_ |_   ||_||_|
-//  ||_  _|  | _||_|  ||_| _|
-
     const string DIGIT_ONE_LINES = ("   \n"
                                     "  |\n"
                                     "  |\n"
@@ -30,15 +26,19 @@ public:
      : AccountNumberOne(DIGIT_ONE_LINES)
      , AccountNumberTwo(DIGIT_TWO_LINES)
      , AccountNumberNine(DIGIT_NINE_LINES)
+     , TwoAccountNumbers(DIGIT_ONE_LINES+DIGIT_NINE_LINES)
+     , EmptyAccountFile("")
     {
     }
 
     istringstream AccountNumberOne;
     istringstream AccountNumberTwo;
     istringstream AccountNumberNine;
+    istringstream TwoAccountNumbers;
+    istringstream EmptyAccountFile;
 };
 
-TEST_F(AccountNumberTest, GivenAfileWithOneDigitAccountNumberThenItReadsFourLinesCorrectly)
+TEST_F(AccountNumberTest, DISABLED_GivenAfileWithOneDigitAccountNumberThenItReadsFourLinesCorrectly)
 {
     AccountNumber TheAccountNumber(AccountNumberOne);
 
@@ -68,4 +68,16 @@ TEST_F(AccountNumberTest, GivenAfileWithOneDigitAccountNumberThenItInterpretsItI
 
     AccountNumber TheAccountNumberNine(AccountNumberNine);
     EXPECT_THAT(TheAccountNumberNine.value(), StrEq("9"));
+}
+
+TEST_F(AccountNumberTest, GivenAfileWithTwoOneDigitAccountNumbersOnePerLineThenItReturnsOneAccountNumberPerLine)
+{
+    AccountNumber TheAccountNumberList(TwoAccountNumbers);
+    EXPECT_THAT(TheAccountNumberList.value(), StrEq("1\n9"));
+}
+
+TEST_F(AccountNumberTest, GivenAfileWithNoLinesThenAnEmptyLineIsReturned)
+{
+    AccountNumber TheEmptyAccountList(EmptyAccountFile);
+    EXPECT_THAT(TheEmptyAccountList.value(), StrEq(""));
 }
