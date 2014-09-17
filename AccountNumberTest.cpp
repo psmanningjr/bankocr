@@ -81,3 +81,4 @@ TEST_F(AccountNumberTest, GivenAfileWithNoLinesThenAnEmptyLineIsReturned)
     AccountNumber TheEmptyAccountList(EmptyAccountFile);
     EXPECT_THAT(TheEmptyAccountList.value(), StrEq(""));
 }
+

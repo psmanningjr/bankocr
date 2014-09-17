@@ -76,7 +76,7 @@ TEST(BankOcrTest, GivenAFileWithNineDigitAccountNumberThenItReturnsAccountNumber
     EXPECT_THAT(TheBankOcr.read(fileWithOneAccount), Eq("123456789"));
 }
 
-TEST(BankOcrTest, DISABLED_GivenAFileWithTwoNineDigitAccountNumbersThenItReturnsBothAccountNumbers)
+TEST(BankOcrTest, GivenAFileWithTwoNineDigitAccountNumbersThenItReturnsBothAccountNumbers)
 {
     BankOcr TheBankOcr;
     istringstream fileWithTwoAccountNums("                         _ \n"
@@ -88,6 +88,23 @@ TEST(BankOcrTest, DISABLED_GivenAFileWithTwoNineDigitAccountNumbersThenItReturns
                                          "  ||_  _|  | _||_|  ||_| _|\n"
                                          "\n");
     EXPECT_THAT(TheBankOcr.read(fileWithTwoAccountNums), Eq("111111110\n123456789"));
+    istringstream fileWithFourAccountNums("    _                    _ \n"
+                                          "  |  |  |  |  |  |  |  || |\n"
+                                          "  |  |  |  |  |  |  |  ||_|\n"
+                                          "\n"
+                                          "    _  _     _  _  _  _  _ \n"
+                                          "  | _| _||_||_ |_|  ||_||_|\n"
+                                          "  ||_  _|  | _||_|  ||_| _|\n"
+                                          "\n"
+                                          "    _  _     _  _  _  _  _ \n"
+                                          "  | _| _||_||_ |_   ||_||_|\n"
+                                          "  | _| _|  | _||_|  ||_| _|\n"
+                                          "\n"
+                                          "                         _ \n"
+                                          "|_|  |  |  |  |  |  |  || |\n"
+                                          "  |  |  |  |  |  |  |  ||_|\n"
+                                          "\n");
+    EXPECT_THAT(TheBankOcr.read(fileWithFourAccountNums), Eq("171111110\n123458789\n133456789\n411111110"));
 }
 
 

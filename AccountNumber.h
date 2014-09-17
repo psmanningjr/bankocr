@@ -43,6 +43,10 @@ class AccountNumber
 public:
     AccountNumber(istream& inputStream)
         : inpStream(NULL)
+        , FirstLine("")
+        , SecondLine("")
+        , ThirdLine("")
+        , FourthLine("")
     {
         inpStream = &inputStream;
         DigitMap[DIGIT_ZERO_CODE]  = "0";
@@ -59,26 +63,21 @@ public:
 
     string value()
     {
-        string line1ScannedDigits;
-        std::getline(*inpStream,FirstLine);
-        std::getline(*inpStream,SecondLine);
-        std::getline(*inpStream,ThirdLine);
-        std::getline(*inpStream,FourthLine);
-        decodeDigit(FirstLine, SecondLine, ThirdLine, line1ScannedDigits);
-        string line2ScannedDigits;
-        std::getline(*inpStream,FirstLine);
-        std::getline(*inpStream,SecondLine);
-        std::getline(*inpStream,ThirdLine);
-        std::getline(*inpStream,FourthLine);
-        if (FirstLine.length() == 0)
+        string linesOfScannedDigits;
+        bool alreadyReadAnAccountNumber = false;
+        while (std::getline(*inpStream,FirstLine))
         {
-            return line1ScannedDigits;
+            if (alreadyReadAnAccountNumber)
+            {
+                linesOfScannedDigits += '\n';
+            }
+            std::getline(*inpStream,SecondLine);
+            std::getline(*inpStream,ThirdLine);
+            std::getline(*inpStream,FourthLine);
+            alreadyReadAnAccountNumber = true;
+            decodeDigit(FirstLine, SecondLine, ThirdLine, linesOfScannedDigits);
         }
-        else
-        {
-            decodeDigit(FirstLine, SecondLine, ThirdLine, line2ScannedDigits);
-            return line1ScannedDigits.append('\n'+line2ScannedDigits);
-        }
+        return linesOfScannedDigits;
     }
 
 private:
